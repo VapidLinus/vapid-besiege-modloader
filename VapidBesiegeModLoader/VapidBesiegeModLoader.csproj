@@ -9,14 +9,16 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Vapid.ModLoader</RootNamespace>
     <AssemblyName>VapidModLoader</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\Program Files %28x86%29\Steam\SteamApps\common\Besiege\Besiege_Data\Mods\</OutputPath>
+    <OutputPath>..\..\..\Program Files %28x86%29\Steam\SteamApps\common\Besiege\Besiege_Data\Mods\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -48,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activator.cs" />
+    <Compile Include="Delgates.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="Mod.cs" />
+    <Compile Include="Loader.cs" />
+    <Compile Include="UserMod\UserMod.cs" />
+    <Compile Include="RecieverTest.cs" />
     <Compile Include="VapidModLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
