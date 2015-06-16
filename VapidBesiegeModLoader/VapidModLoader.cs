@@ -2,34 +2,24 @@
 
 namespace Vapid.ModLoader
 {
-	public class VapidModLoader : MonoBehaviour
+	public class VapidModLoader : SingleInstance<VapidModLoader>
 	{
-		string log = "";
+		public override string Name { get { return "Vapid's ModLoader"; } }
 
 		void Awake()
 		{
-			Application.RegisterLogCallback(OnLog);
+			Debug.Log(Name + " activated.");
 			DontDestroyOnLoad(this);
 
-			gameObject.AddComponent<Loader>();
+			Console.Initialize();
 
-			Debug.Log("Vapid's ModLoader activated.");
+			// Load and activate mods
+			gameObject.AddComponent<Loader>();
 		}
 
 		void OnLevelWasLoaded(int level)
 		{
 			GameState.Instance.InvokeOnLevelLoaded(level, Application.loadedLevelName);
-		}
-
-		void OnLog(string log, string trace, LogType type)
-		{
-			this.log += string.Format("[{0}] {1}\n", type.ToString(), log);
-		}
-
-		void OnGUI()
-		{
-			var rect = new Rect(20, 40, 2000, 2000);
-			GUI.Label(rect, log);
 		}
 	}
 }

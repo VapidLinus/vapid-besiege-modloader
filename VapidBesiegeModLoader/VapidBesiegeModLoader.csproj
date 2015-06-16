@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-UnityScript">
       <HintPath>..\..\..\..\Program Files (x86)\Steam\SteamApps\common\Besiege\Besiege_Data\Managed\Assembly-UnityScript.dll</HintPath>
@@ -50,10 +53,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activator.cs" />
+    <Compile Include="UI\Buttons.cs" />
+    <Compile Include="UI\Colors.cs" />
+    <Compile Include="UI\Elements.cs" />
+    <Compile Include="DevUtil\VColor.cs" />
+    <Compile Include="DevUtil\Console.cs" />
     <Compile Include="Delgates.cs" />
+    <Compile Include="DevUtil\LogEntry.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="UI\InputFields.cs" />
+    <Compile Include="UI\Labels.cs" />
+    <Compile Include="UI\Scrollview.cs" />
+    <Compile Include="UI\Tools.cs" />
+    <Compile Include="UI\VGUI.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Loader.cs" />
+    <Compile Include="DevUtil\SingleInstance.cs" />
+    <Compile Include="UI\Windows.cs" />
     <Compile Include="UserMod\UserMod.cs" />
     <Compile Include="RecieverTest.cs" />
     <Compile Include="VapidModLoader.cs" />

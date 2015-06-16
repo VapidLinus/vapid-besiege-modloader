@@ -38,6 +38,7 @@ namespace Vapid.ModLoader
 
 		private void LoadMods()
 		{
+			Debug.Log("Loading mods...");
 			try
 			{
 				// Find all DLL files in the mods directory
@@ -47,7 +48,7 @@ namespace Vapid.ModLoader
 					// Ignore the modloader itself
 					if (file.Contains("VapidModLoader")) continue;
 
-					Debug.Log("Loading: " + Path.GetFileName(file));
+					Debug.Log(Path.GetFileName(file));
 					try
 					{
 						var assembly = Assembly.LoadFrom(file);
@@ -97,16 +98,20 @@ namespace Vapid.ModLoader
 
 		private void ActivateMods()
 		{
+			Debug.Log("Activating mods...");
 			foreach (var mod in mods)
 			{
+				Debug.Log(mod.UserMod.DisplayName);
 				mod.Activate();
 			}
 		}
 
 		private void DeactivateMods()
 		{
+			Debug.Log("Deactivating mods...");
 			foreach (var mod in mods)
 			{
+				Debug.Log(mod.UserMod.DisplayName);
 				mod.Deactivate();
 			}
 		}

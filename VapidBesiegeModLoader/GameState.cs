@@ -1,19 +1,8 @@
-﻿using UnityEngine;
-
-namespace Vapid.ModLoader
+﻿namespace Vapid.ModLoader
 {
-	public class GameState : MonoBehaviour
+	public class GameState : SingleInstance<GameState>
 	{
-		private static GameState _instance;
-
-		/// <summary>
-		/// Gets the GameState instance.
-		/// A new one will be created if none exists.
-		/// </summary>
-		public static GameState Instance
-		{
-			get { return _instance ?? (_instance = new GameObject("Vapid's GameState").AddComponent<GameState>()); }
-		}
+		public override string Name { get { return "Vapid's GameState"; } }
 
 		public event OnSimulateToggle OnSimulateToggle;
 		public event OnLevelLoaded OnLevelLoaded;
