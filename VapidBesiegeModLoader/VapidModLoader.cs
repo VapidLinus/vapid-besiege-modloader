@@ -13,6 +13,7 @@ namespace Vapid.ModLoader
 			DontDestroyOnLoad(this);
 
 			Console.Initialize();
+			BlockPrefabs.Initialize();
 
 			// Load and activate mods
 			gameObject.AddComponent<Loader>();
