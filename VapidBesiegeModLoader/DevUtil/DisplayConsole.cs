@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Vapid.ModLoader.API;
 using Vapid.ModLoader.UI;
 
 namespace Vapid.ModLoader
@@ -46,7 +47,12 @@ namespace Vapid.ModLoader
 
 		void OnLog(string log, string trace, LogType type)
 		{
-			entries.Add(new LogEntry(type, log, trace));
+			AddLog(new LogEntry(type, log, trace));
+		}
+
+		internal void AddLog(LogEntry entry)
+		{
+			entries.Add(entry);
 		}
 
 		void DoWindow(int id)

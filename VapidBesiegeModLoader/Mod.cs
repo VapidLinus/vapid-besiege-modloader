@@ -1,4 +1,6 @@
-﻿namespace Vapid.ModLoader
+﻿using Vapid.ModLoader.API;
+
+namespace Vapid.ModLoader
 {
 	internal class Mod
 	{

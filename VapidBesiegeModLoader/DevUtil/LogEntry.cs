@@ -12,7 +12,7 @@ namespace Vapid.ModLoader
 
 		public bool IsExpanded { get; set; }
 
-		public LogEntry(LogType type, string log, string trace)
+		internal LogEntry(LogType type, string log, string trace)
 		{
 			this.type = type;
 			this.log = log;

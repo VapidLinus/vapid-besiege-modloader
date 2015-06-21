@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Vapid.ModLoader
+namespace Vapid.ModLoader.API
 {
 	public static class VColor
 	{

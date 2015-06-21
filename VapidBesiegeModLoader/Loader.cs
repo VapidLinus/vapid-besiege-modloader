@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
+using Vapid.ModLoader.API;
 
 namespace Vapid.ModLoader
 {

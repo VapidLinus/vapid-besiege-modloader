@@ -1,4 +1,4 @@
-﻿namespace Vapid.ModLoader
+﻿namespace Vapid.ModLoader.API
 {
 	public abstract class UserMod
 	{

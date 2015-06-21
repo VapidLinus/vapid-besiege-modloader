@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Vapid.ModLoader
+namespace Vapid.ModLoader.API
 {
 	public abstract class SingleInstance<T> : MonoBehaviour where T : SingleInstance<T>
 	{
