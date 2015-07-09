@@ -11,26 +11,28 @@ namespace Vapid.ModLoader.UI
 
 		internal Scrollview()
 		{
-			Horizontal = new GUIStyle()
+			Horizontal = new GUIStyle
 			{
 				normal = { background = Elements.LoadImage("scroll-horizontal.png") },
+				fixedHeight = 13,
 				border = new RectOffset(6, 6, 3, 3)
 			};
 
-			Vertical = new GUIStyle()
+			Vertical = new GUIStyle
 			{
 				normal = { background = Elements.LoadImage("scroll-vertical.png") },
 				fixedWidth = 13,
-				border = new RectOffset(3, 3, 6, 6)
+				border = new RectOffset(3, 3, 6, 6),
 			};
 
-			ThumbHorizontal = new GUIStyle()
+			ThumbHorizontal = new GUIStyle
 			{
-				normal = { background = Elements.LoadImage("thumb-vertical.png") },
+				normal = { background = Elements.LoadImage("thumb-horizontal.png") },
+				fixedHeight = 13,
 				border = new RectOffset(6, 6, 3, 3)
 			};
 
-			ThumbVertical = new GUIStyle()
+			ThumbVertical = new GUIStyle
 			{
 				normal = { background = Elements.LoadImage("thumb-vertical.png") },
 				fixedWidth = 13,

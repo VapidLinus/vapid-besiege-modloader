@@ -23,12 +23,29 @@ namespace Vapid.ModLoader.UI
 		/// Returns whether the mouse is hovering over any Unity GUI elements.
 		/// <para>Not implemented.</para>
 		/// </summary>
-		public static bool IsMouseTouchingGUI { get; set; }
+		public static bool IsMouseTouchingGUI { get; set; } // TODO: Implement
 
 		void Awake()
 		{
-			DontDestroyOnLoad(this);
+			VapidModLoader.ActivateModule(this);
 
+			// Not calling RebuildSkin(), because it will
+			// be called when Elements is rebuilt.
+		}
+
+		void OnGUI()
+		{
+			if (!Elements.IsInitialized)
+			{
+				Elements.RebuildElements();
+			}
+		}
+
+		/// <summary>
+		/// Rebuilds the skin to match the GUIStyles in Elements.
+		/// </summary>
+		public void RebuildSkin()
+		{
 			Skin = ScriptableObject.CreateInstance<GUISkin>();
 			Skin.window = Elements.Windows.Default;
 			Skin.label = Elements.Labels.Default;

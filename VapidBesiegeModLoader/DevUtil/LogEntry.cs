@@ -33,7 +33,7 @@ namespace Vapid.ModLoader
 					case LogType.Exception: return Elements.Colors.LogException;
 					case LogType.Assert: return Elements.Colors.LogAssert;
 
-					default: throw new NotImplementedException();
+					default: throw new InvalidOperationException("Unsupported log type.");
 				}
 			}
 		}

@@ -10,6 +10,11 @@ namespace Vapid.ModLoader.UI
 	/// </summary>
 	public static class Elements
 	{
+		private static Settings _settings;
+		public static Settings Settings { get { return _settings ?? (_settings = new Settings()); } }
+
+		public static bool IsInitialized { get; private set; }
+
 		public static Colors Colors { get; private set; }
 		public static Windows Windows { get; private set; }
 		public static Labels Labels { get; private set; }
@@ -17,9 +22,15 @@ namespace Vapid.ModLoader.UI
 		public static Tools Tools { get; private set; }
 		public static InputFields InputFields { get; private set; }
 		public static Scrollview Scrollview { get; private set; }
-
-		static Elements()
+		
+		/// <summary>
+		/// Rebuilds all elements to make them match the settings in Elements.Settings.
+		/// <para>This will also call VGUI.Instance.RebuildSkin().</para>
+		/// </summary>
+		public static void RebuildElements()
 		{
+			IsInitialized = true;
+
 			Colors = new Colors();
 			Labels = new Labels();
 			Windows = new Windows();
@@ -27,9 +38,11 @@ namespace Vapid.ModLoader.UI
 			Tools = new Tools();
 			InputFields = new InputFields();
 			Scrollview = new Scrollview();
+
+			VGUI.Instance.RebuildSkin();
 		}
 
-		private static Dictionary<string, Texture2D>  loadedTextures = new Dictionary<string, Texture2D>();
+		private static readonly Dictionary<string, Texture2D> loadedTextures = new Dictionary<string, Texture2D>();
 		internal static Texture2D LoadImage(string name)
 		{
 			if (loadedTextures.ContainsKey(name))
@@ -44,6 +57,7 @@ namespace Vapid.ModLoader.UI
 				var bytes = File.ReadAllBytes(Application.dataPath + "/Mods/Internal/UI/" + name);
 				var texture = new Texture2D(0, 0);
 				texture.LoadImage(bytes);
+				loadedTextures.Add(name, texture);
 
 				return texture;
 			}

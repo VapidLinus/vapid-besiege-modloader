@@ -39,7 +39,7 @@ namespace Vapid.ModLoader.API
 
 		void Awake()
 		{
-			DontDestroyOnLoad(this);
+			VapidModLoader.ActivateModule(this);
 		}
 
 		internal void InvokeOnSimulateToggle(bool simulating)

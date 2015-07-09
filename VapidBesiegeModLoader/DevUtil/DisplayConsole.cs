@@ -7,11 +7,9 @@ namespace Vapid.ModLoader
 {
 	class Console : SingleInstance<Console>
 	{
-		private const float LOG_ENTRY_HEIGHT = 16;
-		private const float CONSOLE_WIDTH = 400;
-		private const float CONSOLE_HEIGHT = 600;
-
 		public override string Name { get { return "Vapid's Console"; } }
+
+		private readonly int windowID = WindowID.Next();
 
 		private readonly List<LogEntry> entries = new List<LogEntry>();
 
@@ -19,19 +17,19 @@ namespace Vapid.ModLoader
 		private Vector2 scroll;
 		private Rect rect;
 
-		private bool isVisible = true;
+		private bool isVisible;
 
 		void Awake()
 		{
 			Application.RegisterLogCallback(OnLog);
-			DontDestroyOnLoad(this);
+			VapidModLoader.ActivateModule(this);
 
-			rect = new Rect(20, 20, CONSOLE_WIDTH, CONSOLE_HEIGHT);
+			rect = new Rect(20, 20, Elements.Settings.ConsoleSize.x, Elements.Settings.ConsoleSize.y);
 		}
 
 		void Update()
 		{
-			if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.C))
+			if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.C))
 			{
 				isVisible = !isVisible;
 			}
@@ -42,7 +40,7 @@ namespace Vapid.ModLoader
 			GUI.skin = VGUI.Skin;
 
 			if (isVisible)
-				GUILayout.Window(3712, rect, DoWindow, "Vapid's Console");
+				rect = GUILayout.Window(windowID, rect, DoWindow, "Vapid's Console");
 		}
 
 		void OnLog(string log, string trace, LogType type)
@@ -57,6 +55,8 @@ namespace Vapid.ModLoader
 
 		void DoWindow(int id)
 		{
+			GUI.DragWindow(new Rect(0, 0, rect.width, GUI.skin.window.padding.top));
+
 			#region Console Log
 			scroll = GUILayout.BeginScrollView(scroll, false, true);
 
@@ -73,7 +73,10 @@ namespace Vapid.ModLoader
 
 			inputCommandField = GUILayout.TextField(inputCommandField, GUILayout.Width(300));
 			GUILayout.Button("Execute");
-			GUILayout.Button("Clear");
+			if (GUILayout.Button("Clear"))
+			{
+				entries.Clear();
+			}
 
 			GUILayout.EndHorizontal();
 			#endregion
@@ -88,12 +91,12 @@ namespace Vapid.ModLoader
 			if (entry.trace == null || entry.trace.Length < 3)
 			{
 				// If there is no trace, display a disabled arrow
-				Elements.Tools.DoCollapseArrow(true, false, LOG_ENTRY_HEIGHT, LOG_ENTRY_HEIGHT);
+				Elements.Tools.DoCollapseArrow(false, false);
 			}
 			else
 			{
 				// If there is a trace, display a toggleable collapsing arrow
-				if (Elements.Tools.DoCollapseArrow(!entry.IsExpanded, true, LOG_ENTRY_HEIGHT, LOG_ENTRY_HEIGHT))
+				if (Elements.Tools.DoCollapseArrow(entry.IsExpanded))
 				{
 					// If arrow is pressed, toggle it being collapsed
 					entry.IsExpanded = !entry.IsExpanded;
@@ -101,11 +104,12 @@ namespace Vapid.ModLoader
 			}
 
 			// Style for log message
-			var style = GUI.skin.label;
-			style.margin.top = 3;
-			style.normal.textColor = entry.Color;
+			var style = new GUIStyle(Elements.Labels.LogEntry)
+			{
+				normal = { textColor = entry.Color }
+			};
 			// Display log message
-			GUILayout.TextField(entry.log, style);
+			GUILayout.TextField(entry.log, style, GUILayout.Height(Elements.Settings.LogEntrySize));
 
 			GUILayout.EndHorizontal();
 			#endregion
@@ -119,7 +123,7 @@ namespace Vapid.ModLoader
 				var traceStyle = GUI.skin.label;
 				traceStyle.normal.textColor = new Color(.9f, .9f, .9f);
 
-				GUILayout.Space(LOG_ENTRY_HEIGHT + 8); // Move trace text to the right to match expansion arrows
+				GUILayout.Space(Elements.Settings.LogEntrySize + 8); // Move trace text to the right to match expansion arrows // TODO: Magic value
 				GUILayout.TextArea(entry.trace, traceStyle);
 
 				GUILayout.EndHorizontal();

@@ -66,22 +66,17 @@ namespace Vapid.ModLoader.API
 
 		void Awake()
 		{
-			GameState.Instance.OnLevelLoaded += OnLevelLoaded;
-		}
+			VapidModLoader.ActivateModule(this);
 
-		void OnLevelLoaded(int id, string name)
-		{
-			// Attempt loading prefabs
-			LoadPrefabs();
+			// Attempt loading prefabs every time a scene is loaded
+			GameState.Instance.OnLevelLoaded += delegate { LoadPrefabs(); };
 		}
 
 		void LoadPrefabs()
 		{
+			// Don't load prefabs if there's no machine tracker in the scene
 			var tracker = GameState.MachineObjectTracker;
-			if (tracker == null)
-			{
-				return;
-			}
+			if (tracker == null) return;
 
 			var prefabs = new HashSet<GameObject>(tracker.AllPrefabs);
 
